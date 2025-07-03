@@ -1,3 +1,4 @@
+import os # これをファイルの先頭に追加
 from flask import Flask, request, abort
 import os
 import threading
@@ -28,8 +29,8 @@ genai.configure(api_key=GEMINI_API_KEY)
 
 app = Flask(__name__)
 
-line_bot_api = LineBotApi('YOUR_CHANNEL_ACCESS_TOKEN') # あなたのアクセストークンに置き換えてください
-handler = WebhookHandler('YOUR_CHANNEL_SECRET') # あなたのチャネルシークレットに置き換えてください
+line_bot_api = LineBotApi(os.environ.get("CHANNEL_ACCESS_TOKEN"))# あなたのアクセストークンに置き換えてください
+handler = WebhookHandler(os.environ.get("CHANNEL_SECRET"))
 
 # ★★★ 会話履歴をユーザーIDごとに保存する辞書 ★★★
 # defaultdictを使うことで、存在しないキーにアクセスしたときに自動的に空のリストが作成される
